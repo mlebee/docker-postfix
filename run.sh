@@ -41,13 +41,11 @@ add_config_value "smtp_sasl_auth_enable" "yes"
 add_config_value "smtp_use_tls" "yes"
 add_config_value "smtp_sasl_password_maps" "hash:\/etc\/postfix\/sasl_passwd"
 add_config_value "smtp_sasl_security_options" "noanonymous"
-fi
-
-# Create sasl_passwd file with auth credentials
+# and create sasl_passwd file with auth credentials
 echo "Adding SASL authentication configuration"
 echo "[${SMTP_SERVER}]:${SMTP_PORT} ${SMTP_USERNAME}:${SMTP_PASSWORD}" > /etc/postfix/sasl_passwd
 postmap /etc/postfix/sasl_passwd
-
+fi
 
 #Set header tag
 if [ ! -z "${SMTP_HEADER_TAG}" ]; then
@@ -56,5 +54,6 @@ if [ ! -z "${SMTP_HEADER_TAG}" ]; then
   echo "Setting configuration option SMTP_HEADER_TAG with value: ${SMTP_HEADER_TAG}"
 fi
 
-#Start services
-supervisord
+#Start postfix
+echo "Starting postfix"
+/usr/sbin/postfix start-fg -c /etc/postfix
