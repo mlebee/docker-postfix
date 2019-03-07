@@ -24,6 +24,9 @@ else
   SMTP_PORT="25"
 fi
 
+# Configuring logging to stdout
+add_config_value "maillog_file" "/dev/stdout"
+
 # Set needed config options
 add_config_value "myhostname" ${SERVER_HOSTNAME-noname}
 add_config_value "mydomain" ${DOMAIN}
@@ -55,5 +58,5 @@ if [ ! -z "${SMTP_HEADER_TAG}" ]; then
 fi
 
 #Start postfix
-echo "Starting postfix"
+echo "Starting postfix in foreground"
 /usr/sbin/postfix start-fg -c /etc/postfix
