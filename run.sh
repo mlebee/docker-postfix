@@ -27,9 +27,13 @@ fi
 # Set needed config options
 add_config_value "myhostname" ${SERVER_HOSTNAME-noname}
 add_config_value "mydomain" ${DOMAIN}
-add_config_value "mydestination" '$myhostname'
+add_config_value "mydestination" '$myhostname localhost.$mydomain localhost'
 add_config_value "myorigin" '$mydomain'
 add_config_value "relayhost" "[${SMTP_SERVER}]:${SMTP_PORT}"
+# and specify the trusted networks
+add_config_value "mynetworks" "127.0.0.0/8, 10.0.0.0/8"
+add_config_value "inet_interfaces" "all"
+add_config_value "inet_protocols" "ipv4"
 
 # Set sasl config options
 if [[ "${SMTP_SASL_AUTH_ENABLE}" == "yes" ]]; then
