@@ -50,6 +50,9 @@ echo "[${SMTP_SERVER}]:${SMTP_PORT} ${SMTP_USERNAME}:${SMTP_PASSWORD}" > /etc/po
 postmap /etc/postfix/sasl_passwd
 fi
 
+# Remove sensitive headers
+add_config_value "header_checks" "regexp:/etc/postfix/header_checks"
+
 #Set header tag
 if [ ! -z "${SMTP_HEADER_TAG}" ]; then
   postconf -e "header_checks = regexp:/etc/postfix/header_tag"

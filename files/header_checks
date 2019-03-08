@@ -1,0 +1,8 @@
+# Preserve privacy and remove headers
+
+/^Received:/            IGNORE
+/^X-Originating-IP:/    IGNORE
+/^X-Mailer:/            IGNORE
+/^Mime-Version:/        IGNORE
+/^Message-Id:/          IGNORE
+/^User-Agent:/          IGNORE
