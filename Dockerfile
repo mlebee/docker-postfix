@@ -9,7 +9,6 @@
 FROM archlinux/base
 
 RUN pacman -Sy --noconfirm postfix grep
-COPY files/header_checks /etc/postfix
 COPY run.sh /
 RUN chmod +x /run.sh
 RUN newaliases

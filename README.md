@@ -15,20 +15,20 @@ Clone this repo and then:
 
 ### How to run it
 
+    docker run -d --name postfix-relay \
+           -e DOMAIN=bar.com \
+           -e SMTP_SERVER=relay.foo.com \
+           mlebee/postfix-relay
+
 The following env variables need to be passed to the container:
 
 * `DOMAIN` The internet domain name of this mail system, aka `mydomain`
 * `SMTP_SERVER` Server address of the SMTP server to use, aka `relayhost`
 
 The following env variables are optional:
-* `SERVER_HOSTNAME` (default: noname) Server hostname for the Postfix container. Emails will appear to come from the hostname's domain.
-* `SMTP_SASL_AUTH_ENABLE` Enable SASL authentication in the Postfix SMTP client. The 2 env variables below are required:
+* `SERVER_HOSTNAME` _(default: noname)_ Server hostname for the Postfix container. Emails will appear to come from the hostname's domain.
+* `SMTP_SASL_AUTH_ENABLE` _(default: false)_ Disable SASL authentication in the Postfix SMTP client by default. Set `true` to enable and fill th 2 env variables below:
   * `SMTP_USERNAME` Username to authenticate with.
   * `SMTP_PASSWORD` Password of the SMTP user.
 * `SMTP_HEADER_TAG` This will add a header for tracking messages upstream. Helpful for spam filters. Will appear as "RelayTag: ${SMTP_HEADER_TAG}" in the email headers.
-
-
-    docker run -d --name postfix-relay \
-           -e DOMAIN=bar.com \
-           -e SMTP_SERVER=relay.foo.com \
-           mlebee/postfix-relay
+* `PRESERVE_PRIVACY_ENABLE` _(default: true)_ Remove sensitive headers by default. Set `false` to show these headers.
